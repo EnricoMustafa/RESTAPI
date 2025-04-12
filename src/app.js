@@ -12,18 +12,21 @@ const usuarios = [
     {id:5, nome: "João",sobrenome:"Silva"},
 ]
 
-
 function buscarUsuarioPorId(id) {
     return usuarios.filter( usuario => usuario.id == id);
 }
 
+function buscaIdUsuario(){
+    
+}
+
 function deletarUsuarioPorId(id) {
-    return usuarios.delete( usuario => usuario.id == id);
+    return usuarios.splice( usuario => usuario.id == id);
 }
 
 //criar rota raiz
 app.get('/', (req,res)=>{
-    res.send("aquie é a Home")
+    res.send("aqui é a Home")
 });
 
 app.get('/usuarios', (req,res)=>{
@@ -35,8 +38,9 @@ app.get('/usuarios/:id', (req,res) =>{
 })
 
 app.delete('/usuarios/:id', (req,res)=>{
-    res.json(deletarUsuarioPorId(req.params.id))
-    res.send("Usuario deletado com sucesso");
+    let index = buscarUsuarioPorId(req.params.id)
+    usuarios.splice(index, 1)
+    res.send("Usuario" + req.params.id + " deletado com sucesso")
 })
 
 app.post('/usuarios', (req,res)=>{
